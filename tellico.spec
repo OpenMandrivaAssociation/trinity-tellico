@@ -6,7 +6,7 @@
 %if "%{?tde_version}" == ""
 %define tde_version 14.1.5
 %endif
-%define pkg_rel 2
+%define pkg_rel 3
 
 %define tde_pkg tellico
 %define tde_prefix /opt/trinity
@@ -254,8 +254,8 @@ export PKG_CONFIG_PATH="%{tde_libdir}/pkgconfig"
 
 %install -a
 # Add svg icons to xdg directories
-%__install BuildOption:    -D -c -p -m 644 "icons/tellico.svg" "%{?buildroot}%{tde_datadir}/icons/hicolor/scalable/apps/tellico.svg"
-%__install BuildOption:    -D -c -p -m 644 "icons/tellico_mime.svg" "%{?buildroot}%{tde_datadir}/icons/hicolor/scalable/mimetypes/application-x-tellico.svg"
+%__install -D -c -p -m 644 "icons/tellico.svg" "%{?buildroot}%{tde_datadir}/icons/hicolor/scalable/apps/tellico.svg"
+%__install -D -c -p -m 644 "icons/tellico_mime.svg" "%{?buildroot}%{tde_datadir}/icons/hicolor/scalable/mimetypes/application-x-tellico.svg"
 
 %find_lang %{tde_pkg}
 
