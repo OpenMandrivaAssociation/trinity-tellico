@@ -2,11 +2,9 @@
 %bcond gamin 1
 
 # TDE variables
-%define tde_epoch 2
 %if "%{?tde_version}" == ""
 %define tde_version 14.1.5
 %endif
-%define pkg_rel 3
 
 %define tde_pkg tellico
 %define tde_prefix /opt/trinity
@@ -23,9 +21,8 @@
 
 
 Name:		trinity-%{tde_pkg}
-Epoch:		%{tde_epoch}
 Version:	1.3.2.1
-Release:	%{?tde_version}_%{?!preversion:%{pkg_rel}}%{?preversion:0_%{preversion}}%{?dist}
+Release:	%{?tde_version:%{tde_version}_}4
 Summary:	Icollection manager for books, videos, music [Trinity]
 Group:		Applications/Utilities
 URL:		http://periapsis.org/tellico/
@@ -33,13 +30,13 @@ URL:		http://periapsis.org/tellico/
 License:	GPLv2+
 
 
-Source0:		https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{tde_version}/main/applications/office/%{tarball_name}-%{tde_version}%{?preversion:~%{preversion}}.tar.xz
+Source0:		https://mirror.ppa.trinitydesktop.org/trinity/releases/R%{tde_version}/main/applications/office/%{tarball_name}-%{tde_version}.tar.xz
 
 BuildSystem:    cmake
 
 BuildOption:    -DCMAKE_BUILD_TYPE="RelWithDebInfo"
 BuildOption:    -DCMAKE_INSTALL_PREFIX=%{tde_prefix}
-BuildOption:    -DCONFIG_INSTALL_DIR="%{_sysconfdir}/trinity"
+BuildOption:    -DCONFIG_INSTALL_DIR=%{_sysconfdir}/trinity
 BuildOption:    -DINCLUDE_INSTALL_DIR=%{tde_prefix}/include/tde
 BuildOption:    -DSHARE_INSTALL_PREFIX=%{tde_prefix}/share
 BuildOption:    -DWITH_ALL_OPTIONS=ON
@@ -117,8 +114,8 @@ BuildRequires:  pkgconfig(ice)
 BuildRequires:  pkgconfig(sm)
 
 
-Requires:		%{name}-data = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:		%{name}-scripts = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:		%{name}-data = %{EVRD}
+Requires:		%{name}-scripts = %{EVRD}
 
 
 %description
